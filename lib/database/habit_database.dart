@@ -14,7 +14,7 @@ class HabitDatabase extends ChangeNotifier {
         await Isar.open([HabitSchema, AppSettingsSchema], directory: dir.path);
   }
 
-// SAVE FIRST DATE
+// SAVE FIRST EVER DATE on app launch
   Future<void> saveFirstLaunchDate() async {
     final existingSettings = await isar.appSettings.where().findFirst();
     if (existingSettings == null) {
@@ -23,13 +23,13 @@ class HabitDatabase extends ChangeNotifier {
     }
   }
 
-// GET FIRST DATE
+// GET FIRST DATE on app launch
   Future<DateTime?> getFirstLAunchDate() async {
     final settings = await isar.appSettings.where().findFirst();
     return settings?.firstLaunchDate;
   }
 
-//List that holds all current habit in our database that we use for the UI
+// List that holds all current habit in our database that we use for the UI
   List<Habit> currentHabits = [];
 
   // CREATE - add new habit to database
@@ -44,7 +44,7 @@ class HabitDatabase extends ChangeNotifier {
     fetchHabits();
   }
 
-  // READ - read habit from database
+  // READ - read habits from database
   Future<void> fetchHabits() async {
     final fetchedHabits = await isar.habits.where().findAll();
     //alway clear before adding to list
